@@ -1,0 +1,77 @@
+#+TITLE: PROYECTO FINAL
+#+AUTHOR: Ricardo León
+#+DATE: 2026-01-06
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
+#+OPTIONS: H:2 toc:nil
+#+STARTUP: beamer
+
+# --- CONFIGURACIÓN VISUAL (MADRID + AZUL) ---
+#+LATEX_HEADER: \usetheme{Madrid}
+#+LATEX_HEADER: \definecolor{TuAzul}{RGB}{0,85,127}
+#+LATEX_HEADER: \usecolortheme[named=TuAzul]{structure}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=TuAzul, fg=white}
+#+LATEX_HEADER: \setbeamercolor{title}{bg=TuAzul, fg=white}
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+
+* Contexto Histórico
+** La Batalla de Pichincha
+   La Batalla de Pichincha (**24 de mayo de 1822**) selló la independencia de Ecuador.
+   
+   - *Lugar:* Faldas del volcán Pichincha, Quito.
+   - *Comandante Patriota:* Antonio José de Sucre.
+   - *Comandante Realista:* Melchor Aymerich.
+
+** Antecedentes del Conflicto
+   Antes de llegar a Quito, las tropas libertadoras tuvieron que:
+   1. Avanzar desde Guayaquil hacia la sierra.
+   2. Cruzar la cordillera de los Andes con difícil clima.
+   3. Vencer en batallas previas como la de Riobamba.
+
+* Análisis Estratégico
+** Estrategia Militar (Columnas)
+*** Movimiento de Tropas                                        :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    Sucre ordenó un ascenso nocturno para sorprender al enemigo por la retaguardia.
+    
+    - La maniobra fue arriesgada por el terreno.
+    - El batallón Albión jugó un papel crucial al flanquear a los realistas.
+
+*** Mapa del Sitio                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :END:
+    # (Aquí iría una imagen si la tuvieras)
+    \centering
+    \Huge [MAPA]
+    \normalsize
+    \vspace{0.5cm}
+    /Esquema táctico/
+
+** Resultados y Consecuencias
+*** Impacto Inmediato                                         :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    La capitulación de Aymerich y la entrada triunfal en Quito.
+
+*** Legado                                               :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+    Quito se unió a la Gran Colombia y sirvió de base para liberar Perú.
+
+* Cierre
+** :PROPERTIES:
+
+   \vspace{1.5cm}
+   \centering
+   \Huge \textbf{¡Muchas Gracias!}
+   
+   \vspace{1cm}
+   \large ¿Preguntas?
+   
+   \vspace{1cm}
+   \footnotesize ricardo.leon02@epn.edu.ec

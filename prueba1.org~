@@ -1,0 +1,30 @@
+#+TITLE: Mi Proyecto Limpio
+#+AUTHOR: Ricardo León
+#+DATE: 2026-01-06
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
+#+OPTIONS: H:2 toc:nil
+
+# --- AQUÍ IMPORTAS TU ARCHIVO .sty ---
+#+LATEX_HEADER: \usepackage{mitema}
+
+* Introducción
+** Diapositiva 1
+   Mira qué limpio quedó este archivo.
+   - El diseño está en =mitema.sty=.
+   - El contenido está aquí.
+
+** Bloques
+*** Bloque Estándar                                               :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    Este bloque sale azul gracias al archivo .sty.
+   
+** Puntos Críticos
+   Es vital recordar que si el puntero es \alert{NULL}, el programa 
+   lanzará una excepción de tipo \alert{NullPointerException}.
+   
+   Esto causará que el sistema se \alert{caiga inmediatamente}.
+
+   

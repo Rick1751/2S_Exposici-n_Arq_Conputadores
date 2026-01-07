@@ -1,0 +1,42 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mitema}
+
+% --- PAQUETES NECESARIOS ---
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usetikzlibrary{calc}
+\usepackage{helvet}
+\usefonttheme[onlymath]{serif}
+
+% --- COLORES (AZUL LUCID) ---
+\definecolor{PrimaryColor}{RGB}{0,85,127}
+\definecolor{SecondaryColor}{RGB}{0,85,127}
+\definecolor{BackgroundColor}{RGB}{255,255,255}
+\definecolor{TextColor}{RGB}{0,0,0}
+\definecolor{ProgBarBGColor}{RGB}{175,175,175}
+\definecolor{AlertColor}{RGB}{127, 0, 85}
+\definecolor{ExampleColor}{RGB}{85, 127, 0}
+
+% --- CONFIGURACIÓN BEAMER BÁSICA ---
+\setbeamercolor{normal text}{fg=TextColor}
+\setbeamercolor{alerted text}{fg=PrimaryColor}
+\setbeamercolor{structure}{fg=SecondaryColor}
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamertemplate{navigation symbols}{}
+
+% --- LISTAS (Cuadraditos) ---
+\setbeamertemplate{itemize item}{\tikz{\draw[fill=SecondaryColor,draw=none] (0, 0) rectangle(0.1, 0.1);\draw[fill=SecondaryColor,draw=none] (0.1, 0.1) rectangle(0.2, 0.2);\draw[fill=SecondaryColor,draw=none] (0, 0.2) rectangle(0.1, 0.3);}}
+\setbeamertemplate{itemize subitem}{\tikz{\draw[fill=SecondaryColor,draw=none] (0, 0) rectangle(0.075, 0.075);\draw[fill=SecondaryColor,draw=none] (0.075, 0.075) rectangle(0.15, 0.15);\draw[fill=SecondaryColor,draw=none] (0, 0.15) rectangle(0.075, 0.225);}}
+
+% --- FONDO Y BARRAS (Diseño Visual) ---
+\newdimen\slidewidth \newdimen\slideheight \slidewidth=\the\paperwidth \slideheight=\the\paperheight
+\setbeamertemplate{background}{\begin{tikzpicture}\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);\fill[color=BackgroundColor] (0,0) rectangle(\the\paperwidth,\the\paperheight);\ifnum\thepage>1\relax\fill[color=PrimaryColor] (0, \slideheight-1cm) rectangle(\slidewidth,\slideheight);\node[anchor=north,text width=\slidewidth-0.5cm,inner xsep=0.5cm,inner ysep=0.25cm] at (0.5\slidewidth,\slideheight) {\color{BackgroundColor}\Large\textbf{\insertframetitle}};\else\fill[color=PrimaryColor] (0, 0.5\slideheight) rectangle(\slidewidth,\slideheight);\node[anchor=south west,text width=\slidewidth-1cm,align=left] at (0.5cm,0.5\slideheight) {\color{BackgroundColor}\Huge\textbf{\inserttitle}};\node[anchor=west,text width=\slidewidth-1cm,align=left] at (0.5cm,2cm) {\color{PrimaryColor}\LARGE\insertauthor};\fi\end{tikzpicture}}
+\setbeamertemplate{frametitle}{}
+
+% --- BLOQUES DE TEXTO ---
+\setbeamercolor{block title}{fg=white, bg=PrimaryColor}
+\setbeamercolor{block body}{bg=PrimaryColor!10}
+\setbeamercolor{block title alerted}{fg=white, bg=AlertColor}
+\setbeamercolor{block body alerted}{bg=AlertColor!25}
