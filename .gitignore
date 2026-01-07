@@ -1,1 +1,10 @@
-prueba1.tex
+# Archivos generados por LaTeX/Org-mode
+*.tex
+*.aux
+*.log
+*.toc
+*.nav
+*.snm
+*.out
+*.vrb
+_minted-*/

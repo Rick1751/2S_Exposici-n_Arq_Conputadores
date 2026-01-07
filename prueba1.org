@@ -23,7 +23,7 @@
    - *Comandante Realista:* Melchor Aymerich.
 
 ** Antecedentes del Conflicto
-   Antes de llegar a Quito, las tropas libertadoras tuvieron que:
+   Antes de llegar a Quito, las tropas libertadoras tuvieron que:::
    1. Avanzar desde Guayaquil hacia la sierra.
    2. Cruzar la cordillera de los Andes con difícil clima.
    3. Vencer en batallas previas como la de Riobamba.
