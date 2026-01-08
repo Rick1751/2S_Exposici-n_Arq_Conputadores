@@ -1,7 +1,7 @@
 #+title: S11-Sistemas de Entrada/Salida
-#+date: 
-#+author: Andre Rosero, Richard Dawkins, Jean LeCunn
-#+email: andre.rosero@epn.edu.ec, richard.dawkins@anotheremail.com, lecunn@meta.com
+#+date: \today
+#+author: Andre Rosero, Ricardo León
+#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
 #+OPTIONS: H:2 toc:nil
@@ -15,8 +15,15 @@
 #+LATEX_HEADER: \setbeamercolor{title}{bg=TuAzul, fg=white}
 #+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
 
-
-# ---E1--
+* Índice
+** Tabla de Contenidos
+- **Sistemas de Entrada/Salida (E1,11,270)(E1, 7,229)**
+- **Módulos de E/S (E2, 11,273)(E2, 7,236)**
+- **E/S Programada (E4,11,276)(E4,7,239)**
+- **E/S mediante Interrupción (E3,11,280)(E3,7,243)**
+- **Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)**
+  
+# ---------------------------------------------------E1-----------------------------------------------------------
 
 * Sistemas de Entrada/Salida 
 ** Introducción
@@ -24,180 +31,182 @@
 Esta sección explica la arquitectura: cómo se conecta el computador con el mundo.
 El Módulo de E/S y su Función
 - *Definición*: Es el tercer elemento clave del computador (junto a CPU y Memoria).No es solo un conector: Un módulo de E/S no solo permite enchufar el dispositivo al bus de sistema; tiene cierta “inteligencia”, para permitir la comunicación entre el periférico y el bus
-- *Funciones* principales:
-- *Interfaz* con el procesador y memoria (vía Bus del Sistema).
-Interfaz con uno o más dispositivos periféricos (vía enlaces de
-datos).
+- *Función principal:* Interfaz con el procesador y memoria (vía Bus del Sistema). Interfaz con uno o más dispositivos periféricos (vía enlaces de datos).
 
 *¿Por qué no conectar periféricos directamente?*
 - *Diversidad:*  Existen demasiados tipos de periféricos con métodos de operación distintos.
 - *Velocidad:* La mayoría son mucho más lentos que la CPU/RAM. Amenudo la velocidad de transferencia de datos de los periféricos es mucho menor que la de la memoria o el procesador.
 - *Formatos de Datos:* Los periféricos usan formatos y tamaños de palabra diferentes a los del computador.
 - *Conclusión:* El Módulo de E/S actúa como traductor y regulador de velocidad.
+  
 
--*Técnicas de Operación de E/S*
-1. E/S Programada: La CPU controla todo directamente y debe "esperar" a que el dispositivo termine. 
-2. E/S mediante Interrupciones: La CPU ordena la tarea y sigue trabajando. El módulo "interrumpe" a la CPU cuando termina.
-3. Acceso Directo a Memoria (DMA): Un procesador especializado transfiere grandes bloques de datos directo a la memoria sin molestar a la CPU principal.
+** Técnicas de Operación de E/S
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+1. *E/S Programada:* La CPU controla todo directamente y debe "esperar" a que el dispositivo termine.
+2. *E/S mediante Interrupciones:* La CPU ordena la tarea y sigue trabajando. El módulo "interrumpe" a la CPU cuando termina.
+3. *Acceso Directo a Memoria (DMA):* Un procesador especializado transfiere grandes bloques de datos directo a la memoria sin molestar a la CPU principal.
 
-#+CAPTION: Figura 7.1: Módulo genérico de E/S y su conexión al Bus.
-#+NAME: fig:modulo_es
-#+ATTR_LATEX: :width 0.6\linewidth :placement [H]
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+#+CAPTION: Módulo genérico.
+#+ATTR_LATEX: :width 1.0\linewidth
 [[./Imagenes/Modulo_ES.png]]
 
-** Dispositivos Externos
-Aquí pasas a hablar de los aparatos que se conectan a ese módulo.
 
--*Clasificación de Dispositivos Externos*
-Conocidos como Periféricos.
+
+** Dispositivos Externos
+*Clasificación de Dispositivos Externos (Periféricos)*
 Se conectan al Módulo de E/S mediante un enlace.
 
-- *Categorías:*
-1.Interacción con Humanos: Comunicación Usuario <-> Computador (Pantallas, impresoras).
-2.Interacción con Máquinas: Comunicación Equipo <-> Equipo (Discos magnéticos, sensores, robots).
-3.De Comunicación: Intercambio con dispositivos remotos (Terminales,
-redes).
+*** Interacción con Humanos
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Comunicación Usuario $\leftrightarrow$ Computador (Pantallas, impresoras).
 
-*Estructura de un Dispositivo Externo*
-- *Los datos:* Los datos se intercambian en forma de un conjunto de bits que son enviados a, o recibidos desde, el módulo de E/S.
-- *Señales de Control:*  E/S, ENTRADA («EMPUT») o LECTURA («READ»), aceptar datos desde el módulo de E/S, SALIDA («OUTPUT») o ESCRITURA («WRITE»), indicar el estado o realizar alguna función de control particular del dispositivo.
-- *Buffer:* Almacén temporal (aprox 8-16 bits) para compensar velocidades de transferencia.
-  
+*** Interacción con Máquinas
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Comunicación Equipo $\leftrightarrow$ Equipo (Discos magnéticos, sensores).
+
+*** De Comunicación
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Intercambio con dispositivos remotos (Terminales, redes).
+
+
+** Estructura de un Dispositivo Externo
+- *Los datos:* Se intercambian como bits enviados a, o recibidos desde, el módulo de E/S.
+- *Señales de Control:* Determinan la función (ENTRADA, SALIDA, Estado).
+- *Buffer:* Almacén temporal (aprox 8-16 bits) para compensar velocidades.
 #+CAPTION: Figura 7.2: Diagrama de bloques interno de un dispositivo externo.
 #+NAME: fig:bloques
-#+ATTR_LATEX: :width 0.6\linewidth :placement [H]
+#+CAPTION: Diagrama de bloques interno de un dispositivo externo.
+#+ATTR_LATEX: :width 0.4\linewidth :placement [H]
 [[./Imagenes/Bloques.png]]
 
 ** Teclado / Monitor
 
 - El teclado funciona como un dispositivo de entrada, mientras que el monitor actúa como un dispositivo de salida.
-
-- La unidad básica de intercambio de información es el carácter. Cada carácter está asociado a un código,
-generalmente representado mediante 7 u 8 bits.
-
-- Uno de los códigos más utilizados es el código IRA
-(International Reference Alphabet), también conocido como ASCII.
+- La unidad básica de intercambio de información es el carácter. Cada carácter está asociado a un código, generalmente representado mediante 7 u 8 bits.
+- Uno de los códigos más utilizados es el código IRA (International Reference Alphabet), también conocido como ASCII.
 
 #+CAPTION: Ejemplo de dispositivo de interacción con humanos (Teclado).
-#+ATTR_LATEX: :width 0.5\linewidth :placement [H]
+#+ATTR_LATEX: :width 0.4\linewidth :placement [H]
 [[./Imagenes/Teclado.jpeg]]
 
-*** Código ASCII (IRA)
-
+** Código ASCII (IRA)
 
 - El código ASCII (IRA – International Reference Alphabet) es un estándar que asigna un valor numérico a cada carácter.
 - Cada carácter se representa mediante un patrón binario de 7 bits, permitiendo un total de 128 caracteres.
 - Existen dos tipos de caracteres:
-  - Imprimibles: letras, números y símbolos.
-  - De control: utilizados para funciones como salto de línea, tabulación o retorno de carro.
+  - *Imprimibles:* letras, números y símbolos.
+  - *De control:* utilizados para funciones como salto de línea, tabulación o retorno de carro.
 - Este código permite que el teclado, el monitor y el computador
   intercambien información de forma uniforme.
-
+  
+** Código ASCII (IRA)
 #+CAPTION: Ejemplo de codificación de datos y bits de posición.
-#+ATTR_LATEX: :width 0.7\linewidth :placement [H]
+#+ATTR_LATEX: :width 0.5\linewidth :placement [H]
 [[./Imagenes/Bit_posicion.jpeg]]
 
 
-*** Entrada desde teclado:
-
-- Cuando el usuario presiona una tecla, el teclado genera una señal electrónica que el transductor del
-dispositivo convierte en un patrón binario correspondiente al código
-del carácter.
-- Este patrón es enviado
-al módulo de E/S del computador, donde puede ser almacenado o procesado.
-
-- En el caso de la salida, el módulo de E/S envía los códigos correspondientes al monitor, el cual interpreta
-dichos códigos y genera las señales necesarias para visualizar el carácter en pantalla.
-
 ** Controlador de Disco (Disk Drive)
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+- El controlador de disco es el componente encargado de gestionar la comunicación entre el módulo de E/S y el almacenamiento secundario.
+- Se encarga de controlar el mecanismo de lectura/escritura y el movimiento del brazo.
+- Utiliza un buffer para almacenar temporalmente los datos.
+- El transductor convierte patrones magnéticos en señales eléctricas.
 
-- El controlador de disco es el componente encargado de gestionar la comunicación entre el módulo de E/S
-y el dispositivo de almacenamiento secundario, como los discos magnéticos.
-
-- controlador contiene la electrónica necesaria para intercambiar señales de datos, control y estado.
-Además, se encarga de controlar el mecanismo de lectura y escritura del disco, así como el movimiento
-del brazo y la cabeza lectora.
-
-- Durante una operación de lectura o escritura, el controlador utiliza un buffer para almacenar temporalmente
-los datos que se transfieren entre el disco y el módulo de E/S.
-
-- El transductor del dispositivo convierte los
-patrones magnéticos del disco en señales eléctricas y viceversa.
-
-
-#+CAPTION: Ejemplo de dispositivo de interacción con máquinas (Disco Duro).
-#+ATTR_LATEX: :width 0.4\linewidth :placement [H]
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+#+CAPTION: Ejemplo (Disco Duro).
+#+ATTR_LATEX: :width 1.0\linewidth
 [[./Imagenes/Disco.jpeg]]
 
-** Controladores de Disco (Interfaces actuales)
 
+** Controladores de Disco (Interfaces actuales)
 - **SATA (Serial ATA):**
   Interfaz ampliamente utilizada para discos duros (HDD) y unidades de estado sólido (SSD).
   Ofrece una buena relación entre costo, capacidad y velocidad.
-
 - **NVMe (Non-Volatile Memory Express):**
   Interfaz moderna que funciona sobre el bus PCI Express.
   Diseñada específicamente para SSD, permite velocidades de transferencia muy superiores a SATA.
-
 - **SAS (Serial Attached SCSI):**
   Utilizada principalmente en servidores y centros de datos.
   Ofrece alta fiabilidad, mayor velocidad y soporte para múltiples dispositivos.
-
 - **USB / Thunderbolt:**
   Interfaces empleadas para dispositivos de almacenamiento externo.
   Permiten conexión rápida y portátil de discos duros y SSD.
-
 #+CAPTION: Diversidad de interfaces y dispositivos de almacenamiento.
 #+NAME: fig:dispositivos
-#+ATTR_LATEX: :width 0.8\linewidth :placement [H]
+#+ATTR_LATEX: :width 0.4\linewidth :placement [H]
 [[./Imagenes/Dispositivos.jpeg]]
 
 
 
-* Análisis Estratégico
-** Estrategia Militar (Columnas)
-*** Movimiento de Tropas                                        :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.6
-    :END:
-    Sucre ordenó un ascenso nocturno para sorprender al enemigo por la retaguardia.
-    
-    - La maniobra fue arriesgada por el terreno.
-    - El batallón Albión jugó un papel crucial al flanquear a los realistas.
 
-*** Mapa del Sitio                                              :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.4
-    :END:
-    # (Aquí iría una imagen si la tuvieras)
-    \centering
-    \Huge [MAPA]
-    \normalsize
-    \vspace{0.5cm}
-    /Esquema táctico/
+# ----------------------------------------------------------------------
+#        ESPACIOS RESERVADOS (DESDE AQUI SUBEN CON EL GIT)
+# ----------------------------------------------------------------------
 
-** Resultados y Consecuencias
-*** Impacto Inmediato                                         :B_block:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :END:
-    La capitulación de Aymerich y la entrada triunfal en Quito.
+* Módulos de E/S 
+** Módulos de E/S
+# TODO: Insertar contenido del grupo E2 aquí
 
-*** Legado                                               :B_alertblock:
-    :PROPERTIES:
-    :BEAMER_env: alertblock
-    :END:
-    Quito se unió a la Gran Colombia y sirvió de base para liberar Perú.
+** Funciones
+# TODO: Detallar funciones principales
+
+** Estructura de Módulos de E/S
+# TODO: Agregar diagrama de estructura
+
+* E/S Programada (E4,11,276)(E4,7,239)
+** E/S Programada
+# TODO: Insertar contenido del grupo E4 aquí
+
+** Comandos de E/S
+# TODO: Explicar comandos
+
+** Instrucciones de E/S
+# TODO: Detallar instrucciones
+
+* E/S mediante Interrupción (E3,11,280)(E3,7,243)
+** E/S mediante Interrupción
+# TODO: Insertar contenido del grupo E3 aquí
+
+** Procesamiento de la Interrupción
+# TODO: Explicar el ciclo de procesamiento
+
+** Problemas de diseño
+# TODO: Listar problemas comunes
+
+* Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
+** Acceso directo a Memoria DMA
+# TODO: Insertar contenido del grupo E5 aquí
+
+** Funcionalidad de DMA
+# TODO: Explicar cómo funciona el DMA
 
 * Cierre
 ** :PROPERTIES:
+\vspace{1.5cm}
+\centering
+\Huge \textbf{¡Muchas Gracias!}
 
-   \vspace{1.5cm}
-   \centering
-   \Huge \textbf{¡Muchas Gracias!}
-   
-   \vspace{1cm}
-   \large ¿Preguntas?
-   
-   \vspace{1cm}
-   \footnotesize ricardo.leon02@epn.edu.ec
+\vspace{1cm}
+\large ¿Preguntas?
+
+\vspace{1cm}
+\footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec
