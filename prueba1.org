@@ -285,4 +285,4 @@ dispositivo.
 \large ¿Preguntas?
 
 \vspace{1cm}
-\footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec
+\footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec, mauro.valencia@epn.edu.ec
