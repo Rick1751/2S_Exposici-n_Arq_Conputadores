@@ -1,7 +1,7 @@
 #+title: S11-Sistemas de Entrada/Salida
 #+date: \today
-#+author: Andre Rosero, Ricardo León
-#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec
+#+author: Andre Rosero, Ricardo León, Mauro Valencia
+#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
 #+OPTIONS: H:2 toc:nil
@@ -172,8 +172,44 @@ Intercambio con dispositivos remotos (Terminales, redes).
   garantizando una comunicación eficiente y transparente entre el
   sistema y periféricos.
 
-** Funciones
-# TODO: Detallar funciones principales
+* Funciones del Módulo de E/S
+** Funciones del Módulo de E/S
+**Control y Temporización (Control & Timing)**
+- *Objetivo:* Coordinar el flujo de tráfico entre recursos internos y dispositivos externos.
+- *Escenario de transferencia (5 pasos):*
+  1. CPU interroga al módulo para verificar el estado.
+  2. El módulo devuelve el estado del dispositivo.
+  3. Si está listo, la CPU envía un comando de transferencia.
+  4. El módulo obtiene el dato (8 o 16 bits) del periférico.
+  5. Los datos se transfieren del módulo a la CPU.
+
+**Comunicación con el Procesador**
+Involucra el uso del bus del sistema para cuatro tareas:
+- *Decodificación de comandos:* Aceptar señales de control (ej. READ SECTOR, SEEK, WRITE).
+- *Intercambio de datos:* Movimiento de bits sobre el bus de datos.
+- *Informe de estado:* Señales para reportar disponibilidad (ej. BUSY o READY).
+- *Reconocimiento de dirección:* Identificar la dirección única asignada a cada periférico.
+  
+
+** Funciones del Módulo de E/S
+**Comunicación con el Dispositivo**
+- El módulo debe realizar la interfaz directa con el periférico.
+- Gestiona el envío de comandos específicos del hardware.
+- Recibe información de estado y datos propios del dispositivo.
+
+**Almacenamiento Temporal (Data Buffering)**
+- *Problema:* La velocidad de la memoria es órdenes de magnitud mayor a la de los periféricos.
+- *Solución:* El módulo actúa como un "reservorio".
+  - Recibe datos de la memoria en ráfagas rápidas.
+  - Los envía al periférico a su ritmo lento (y viceversa).
+- *Beneficio:* No se bloquea la memoria durante operaciones lentas.
+  
+** Funciones del Módulo de E/S
+**Detección de Errores**
+El módulo reporta fallos a la CPU:
+- *Errores físicos:* Mal funcionamiento mecánico o eléctrico (ej. atasco de papel, sector defectuoso).
+- *Errores de transmisión:* Cambios accidentales en los patrones de bits.
+  - *Ejemplo:* Uso de bits de paridad (par o impar) para verificar la integridad de cada carácter.
 
 ** Estructura de Módulos de E/S
 En los módulos la complejidad y cantidad de dispositivos externos varían considerablemente según el
