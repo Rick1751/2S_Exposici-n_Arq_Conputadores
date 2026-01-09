@@ -164,13 +164,53 @@ Intercambio con dispositivos remotos (Terminales, redes).
 
 * Módulos de E/S 
 ** Módulos de E/S
-# TODO: Insertar contenido del grupo E2 aquí
+- **Definición:**
+  Los módulos de E/S son un tipo de intermediario inteligente entre el
+  procesador y los periféricos.
+  Los módulos permiten ignorar el funcionamiento físico de cada
+  dispositivo externo, limitándose a solo ejecutar órdenes simples,
+  garantizando una comunicación eficiente y transparente entre el
+  sistema y periféricos.
 
 ** Funciones
 # TODO: Detallar funciones principales
 
 ** Estructura de Módulos de E/S
-# TODO: Agregar diagrama de estructura
+En los módulos la complejidad y cantidad de dispositivos externos varían considerablemente según el
+dispositivo.
+- **Conexión con el sistema:**
+  El módulo de E/S se conecta al computador mediante el bus del sistema.
+  - Líneas de datos
+  - Líneas de dirección
+  - Líneas de control
+- **Registros:**
+  - Registro de datos:Los datos que se transfieren a, y desde, el módulo se almacenan
+  temporalmente en los registros.
+  - Registro de estado y control:Contiene la información sobre el
+    estado actual del dispositivo y puede recibir informacion de
+    control del procesador.
+** Estructura de Módulos de E/S
+- **Lógica de E/S:**
+  - El módulo interactúa con el procesador a través de líneas de
+   control. En donde se interpreta las órdenes del procesador. También,
+   pueden ser utilizadas por el modulo para señales de arbitraje y
+   estado.
+  - Además, el modulo debe reconocer y generar direcciones únicas para
+   los dispositivos.
+  - Tiene una lógica específica para cada dispositivo a su control.
+  - El módulo oculta detalles al procesador como: temporización,
+    formato de datos y operaciones electromecánicas.
+- **Tipos de modulos de E/S:**
+  - Canal de E/S o procesador de E/S: Se encarga de la mayoría de
+    detalles, generando una interfaz de alto nivel.
+    - Se utiliza en grandes computadores.
+  - Controlador de E/S o controlador de dispositivo: Es simple y
+    requiere un control detallado normalmente.
+    - Se utilizan en microcomputadores.
+** Ejemplo de un módulo de E/S
+#+CAPTION: Ejemplo de del Intel 82C55A.
+#+ATTR_LATEX: :width 0.5\linewidth :placement [H]
+[[./Imagenes/EstructuraES.png]]
 
 * E/S Programada (E4,11,276)(E4,7,239)
 ** E/S Programada
