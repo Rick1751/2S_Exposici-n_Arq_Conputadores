@@ -270,7 +270,75 @@ dispositivo.
 
 * Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
 ** Acceso directo a Memoria DMA
-# TODO: Insertar contenido del grupo E5 aquí
+* Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
+** Concepto y Necesidad del DMA
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+- **El Problema:** La E/S Programada y por Interrupciones limita el rendimiento porque la CPU debe gestionar cada dato ("Busy-waiting" o "Context Switching").
+- **La Solución (DMA):** Un módulo especializado que toma el control del bus para transferir bloques completos directamente a memoria.
+- **Diferencia:** La CPU solo interviene al inicio (delegación) y al final (interrupción por finalización).
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+CAPTION: Tabla 8.1: El DMA es la única técnica con acceso directo a memoria.
+#+ATTR_LATEX: :width 1.0\linewidth :placement [H]
+[[./Imagenes/Tabla_8_1.png]]
+
+** Arquitectura Interna del Módulo
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+El DMA actúa como un procesador simplificado. Para operar independientemente usa registros clave:
+- **Address Register (AR):** Apunta a la dirección de memoria de destino/origen.
+- **Data Count (DC):** Cuenta cuántas palabras faltan por transferir.
+- **Control Logic:** Gestiona el "Handshake" (DREQ, DACK, HRQ, HLDA).
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+CAPTION: Figura 8.12: Registros internos y lógica de control.
+#+ATTR_LATEX: :width 0.9\linewidth :placement [H]
+[[./Imagenes/DMA_Block_Diagram.png]]
+
+** Funcionalidad: Robo de Ciclo (Cycle Stealing)
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+- El DMA **no** ejecuta instrucciones, solo transfiere datos.
+- **Cycle Stealing:** El DMA pausa a la CPU durante **un ciclo de bus** para transferir una palabra.
+- **Ventaja:** No es una interrupción (no guarda contexto), por lo que la CPU sigue trabajando internamente (caché/registros) casi sin impacto.
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+CAPTION: Figura 8.13: El DMA se inserta dentro del ciclo de instrucción.
+#+ATTR_LATEX: :width 1.0\linewidth :placement [H]
+[[./Imagenes/Cycle_Stealing.png]]
+
+** Configuraciones de Interconexión
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+La ubicación del DMA define la eficiencia:
+1. **Bus Único:** Todos comparten el bus. Ineficiente (doble ciclo por dato).
+2. **Bus de E/S (Recomendado):** El DMA aísla el tráfico de los periféricos en un bus privado, liberando el bus del sistema para la CPU y la Memoria.
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+#+CAPTION: Figura 8.14: Evolución hacia el Bus de E/S (c).
+#+ATTR_LATEX: :width 1.0\linewidth :placement [H]
+[[./Imagenes/DMA_Configs.png]]
 
 ** Funcionalidad de DMA
 # TODO: Explicar cómo funciona el DMA
