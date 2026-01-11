@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #+title: S11-Sistemas de Entrada/Salida
 #+date: \today
 #+author: Andre Rosero, Ricardo León
@@ -250,3 +251,361 @@ dispositivo.
 
 \vspace{1cm}
 \footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec
+=======
+#+title: S11-Sistemas de Entrada/Salida
+#+date: \today
+#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes
+#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
+#+OPTIONS: H:2 toc:nil
+#+STARTUP: beamer
+
+# --- CONFIGURACIÓN VISUAL (MADRID + AZUL) ---
+#+LATEX_HEADER: \usetheme{Madrid}
+#+LATEX_HEADER: \definecolor{TuAzul}{RGB}{0,85,127}
+#+LATEX_HEADER: \usecolortheme[named=TuAzul]{structure}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=TuAzul, fg=white}
+#+LATEX_HEADER: \setbeamercolor{title}{bg=TuAzul, fg=white}
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+
+* Índice
+** Tabla de Contenidos
+- **Sistemas de Entrada/Salida (E1,11,270)(E1, 7,229)**
+- **Módulos de E/S (E2, 11,273)(E2, 7,236)**
+- **E/S Programada (E4,11,276)(E4,7,239)**
+- **E/S mediante Interrupción (E3,11,280)(E3,7,243)**
+- **Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)**
+  
+# ---------------------------------------------------E1-----------------------------------------------------------
+
+* Sistemas de Entrada/Salida 
+** Introducción
+*EL MÓDULO DE E/S*
+Esta sección explica la arquitectura: cómo se conecta el computador con el mundo.
+El Módulo de E/S y su Función
+- *Definición*: Es el tercer elemento clave del computador (junto a CPU y Memoria).No es solo un conector: Un módulo de E/S no solo permite enchufar el dispositivo al bus de sistema; tiene cierta “inteligencia”, para permitir la comunicación entre el periférico y el bus
+- *Función principal:* Interfaz con el procesador y memoria (vía Bus del Sistema). Interfaz con uno o más dispositivos periféricos (vía enlaces de datos).
+
+*¿Por qué no conectar periféricos directamente?*
+- *Diversidad:*  Existen demasiados tipos de periféricos con métodos de operación distintos.
+- *Velocidad:* La mayoría son mucho más lentos que la CPU/RAM. Amenudo la velocidad de transferencia de datos de los periféricos es mucho menor que la de la memoria o el procesador.
+- *Formatos de Datos:* Los periféricos usan formatos y tamaños de palabra diferentes a los del computador.
+- *Conclusión:* El Módulo de E/S actúa como traductor y regulador de velocidad.
+  
+
+** Técnicas de Operación de E/S
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+1. *E/S Programada:* La CPU controla todo directamente y debe "esperar" a que el dispositivo termine.
+2. *E/S mediante Interrupciones:* La CPU ordena la tarea y sigue trabajando. El módulo "interrumpe" a la CPU cuando termina.
+3. *Acceso Directo a Memoria (DMA):* Un procesador especializado transfiere grandes bloques de datos directo a la memoria sin molestar a la CPU principal.
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+#+CAPTION: Módulo genérico.
+#+ATTR_LATEX: :width 1.0\linewidth
+[[./Imagenes/Modulo_ES.png]]
+
+
+
+** Dispositivos Externos
+*Clasificación de Dispositivos Externos (Periféricos)*
+Se conectan al Módulo de E/S mediante un enlace.
+
+*** Interacción con Humanos
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Comunicación Usuario $\leftrightarrow$ Computador (Pantallas, impresoras).
+
+*** Interacción con Máquinas
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Comunicación Equipo $\leftrightarrow$ Equipo (Discos magnéticos, sensores).
+
+*** De Comunicación
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Intercambio con dispositivos remotos (Terminales, redes).
+
+
+** Estructura de un Dispositivo Externo
+- *Los datos:* Se intercambian como bits enviados a, o recibidos desde, el módulo de E/S.
+- *Señales de Control:* Determinan la función (ENTRADA, SALIDA, Estado).
+- *Buffer:* Almacén temporal (aprox 8-16 bits) para compensar velocidades.
+#+CAPTION: Figura 7.2: Diagrama de bloques interno de un dispositivo externo.
+#+NAME: fig:bloques
+#+CAPTION: Diagrama de bloques interno de un dispositivo externo.
+#+ATTR_LATEX: :width 0.4\linewidth :placement [H]
+[[./Imagenes/Bloques.png]]
+
+** Teclado / Monitor
+
+- El teclado funciona como un dispositivo de entrada, mientras que el monitor actúa como un dispositivo de salida.
+- La unidad básica de intercambio de información es el carácter. Cada carácter está asociado a un código, generalmente representado mediante 7 u 8 bits.
+- Uno de los códigos más utilizados es el código IRA (International Reference Alphabet), también conocido como ASCII.
+
+#+CAPTION: Ejemplo de dispositivo de interacción con humanos (Teclado).
+#+ATTR_LATEX: :width 0.4\linewidth :placement [H]
+[[./Imagenes/Teclado.jpeg]]
+
+** Código ASCII (IRA)
+
+- El código ASCII (IRA – International Reference Alphabet) es un estándar que asigna un valor numérico a cada carácter.
+- Cada carácter se representa mediante un patrón binario de 7 bits, permitiendo un total de 128 caracteres.
+- Existen dos tipos de caracteres:
+  - *Imprimibles:* letras, números y símbolos.
+  - *De control:* utilizados para funciones como salto de línea, tabulación o retorno de carro.
+- Este código permite que el teclado, el monitor y el computador
+  intercambien información de forma uniforme.
+  
+** Código ASCII (IRA)
+#+CAPTION: Ejemplo de codificación de datos y bits de posición.
+#+ATTR_LATEX: :width 0.5\linewidth :placement [H]
+[[./Imagenes/Bit_posicion.jpeg]]
+
+
+** Controlador de Disco (Disk Drive)
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+- El controlador de disco es el componente encargado de gestionar la comunicación entre el módulo de E/S y el almacenamiento secundario.
+- Se encarga de controlar el mecanismo de lectura/escritura y el movimiento del brazo.
+- Utiliza un buffer para almacenar temporalmente los datos.
+- El transductor convierte patrones magnéticos en señales eléctricas.
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+#+CAPTION: Ejemplo (Disco Duro).
+#+ATTR_LATEX: :width 1.0\linewidth
+[[./Imagenes/Disco.jpeg]]
+
+
+** Controladores de Disco (Interfaces actuales)
+- **SATA (Serial ATA):**
+  Interfaz ampliamente utilizada para discos duros (HDD) y unidades de estado sólido (SSD).
+  Ofrece una buena relación entre costo, capacidad y velocidad.
+- **NVMe (Non-Volatile Memory Express):**
+  Interfaz moderna que funciona sobre el bus PCI Express.
+  Diseñada específicamente para SSD, permite velocidades de transferencia muy superiores a SATA.
+- **SAS (Serial Attached SCSI):**
+  Utilizada principalmente en servidores y centros de datos.
+  Ofrece alta fiabilidad, mayor velocidad y soporte para múltiples dispositivos.
+- **USB / Thunderbolt:**
+  Interfaces empleadas para dispositivos de almacenamiento externo.
+  Permiten conexión rápida y portátil de discos duros y SSD.
+#+CAPTION: Diversidad de interfaces y dispositivos de almacenamiento.
+#+NAME: fig:dispositivos
+#+ATTR_LATEX: :width 0.4\linewidth :placement [H]
+[[./Imagenes/Dispositivos.jpeg]]
+
+
+
+
+# ----------------------------------------------------------------------
+#        ESPACIOS RESERVADOS (DESDE AQUI SUBEN CON EL GIT)
+# ----------------------------------------------------------------------
+
+* Módulos de E/S 
+** Módulos de E/S
+- **Definición:**
+  Los módulos de E/S son un tipo de intermediario inteligente entre el
+  procesador y los periféricos.
+  Los módulos permiten ignorar el funcionamiento físico de cada
+  dispositivo externo, limitándose a solo ejecutar órdenes simples,
+  garantizando una comunicación eficiente y transparente entre el
+  sistema y periféricos.
+
+* Funciones del Módulo de E/S
+** Funciones del Módulo de E/S
+**Control y Temporización (Control & Timing)**
+- *Objetivo:* Coordinar el flujo de tráfico entre recursos internos y dispositivos externos.
+- *Escenario de transferencia (5 pasos):*
+  1. CPU interroga al módulo para verificar el estado.
+  2. El módulo devuelve el estado del dispositivo.
+  3. Si está listo, la CPU envía un comando de transferencia.
+  4. El módulo obtiene el dato (8 o 16 bits) del periférico.
+  5. Los datos se transfieren del módulo a la CPU.
+
+**Comunicación con el Procesador**
+Involucra el uso del bus del sistema para cuatro tareas:
+- *Decodificación de comandos:* Aceptar señales de control (ej. READ SECTOR, SEEK, WRITE).
+- *Intercambio de datos:* Movimiento de bits sobre el bus de datos.
+- *Informe de estado:* Señales para reportar disponibilidad (ej. BUSY o READY).
+- *Reconocimiento de dirección:* Identificar la dirección única asignada a cada periférico.
+  
+
+** Funciones del Módulo de E/S
+**Comunicación con el Dispositivo**
+- El módulo debe realizar la interfaz directa con el periférico.
+- Gestiona el envío de comandos específicos del hardware.
+- Recibe información de estado y datos propios del dispositivo.
+
+**Almacenamiento Temporal (Data Buffering)**
+- *Problema:* La velocidad de la memoria es órdenes de magnitud mayor a la de los periféricos.
+- *Solución:* El módulo actúa como un "reservorio".
+  - Recibe datos de la memoria en ráfagas rápidas.
+  - Los envía al periférico a su ritmo lento (y viceversa).
+- *Beneficio:* No se bloquea la memoria durante operaciones lentas.
+  
+** Funciones del Módulo de E/S
+**Detección de Errores**
+El módulo reporta fallos a la CPU:
+- *Errores físicos:* Mal funcionamiento mecánico o eléctrico (ej. atasco de papel, sector defectuoso).
+- *Errores de transmisión:* Cambios accidentales en los patrones de bits.
+  - *Ejemplo:* Uso de bits de paridad (par o impar) para verificar la integridad de cada carácter.
+
+** Estructura de Módulos de E/S
+En los módulos la complejidad y cantidad de dispositivos externos varían considerablemente según el
+dispositivo.
+- **Conexión con el sistema:**
+  El módulo de E/S se conecta al computador mediante el bus del sistema.
+  - Líneas de datos
+  - Líneas de dirección
+  - Líneas de control
+- **Registros:**
+  - Registro de datos:Los datos que se transfieren a, y desde, el módulo se almacenan
+  temporalmente en los registros.
+  - Registro de estado y control:Contiene la información sobre el
+    estado actual del dispositivo y puede recibir informacion de
+    control del procesador.
+** Estructura de Módulos de E/S
+- **Lógica de E/S:**
+  - El módulo interactúa con el procesador a través de líneas de
+   control. En donde se interpreta las órdenes del procesador. También,
+   pueden ser utilizadas por el modulo para señales de arbitraje y
+   estado.
+  - Además, el modulo debe reconocer y generar direcciones únicas para
+   los dispositivos.
+  - Tiene una lógica específica para cada dispositivo a su control.
+  - El módulo oculta detalles al procesador como: temporización,
+    formato de datos y operaciones electromecánicas.
+- **Tipos de modulos de E/S:**
+  - Canal de E/S o procesador de E/S: Se encarga de la mayoría de
+    detalles, generando una interfaz de alto nivel.
+    - Se utiliza en grandes computadores.
+  - Controlador de E/S o controlador de dispositivo: Es simple y
+    requiere un control detallado normalmente.
+    - Se utilizan en microcomputadores.
+** Ejemplo de un módulo de E/S
+#+CAPTION: Ejemplo de del Intel 82C55A.
+#+ATTR_LATEX: :width 0.5\linewidth :placement [H]
+[[./Imagenes/EstructuraES.png]]
+
+* E/S Programada (E4,11,276)(E4,7,239)
+** E/S Programada
+# TODO: Insertar contenido del grupo E4 aquí
+
+** Comandos de E/S
+# TODO: Explicar comandos
+
+** Instrucciones de E/S
+# TODO: Detallar instrucciones
+
+* E/S mediante Interrupción (E3,11,280)(E3,7,243)
+** E/S mediante Interrupción
+# TODO: Insertar contenido del grupo E3 aquí
+
+** Procesamiento de la Interrupción
+# TODO: Explicar el ciclo de procesamiento
+
+** Problemas de diseño
+# TODO: Listar problemas comunes
+
+* Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
+** Acceso directo a Memoria DMA
+* Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
+** Concepto y Necesidad del DMA
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+- **El Problema:** La E/S Programada y por Interrupciones limita el rendimiento porque la CPU debe gestionar cada dato ("Busy-waiting" o "Context Switching").
+- **La Solución (DMA):** Un módulo especializado que toma el control del bus para transferir bloques completos directamente a memoria.
+- **Diferencia:** La CPU solo interviene al inicio (delegación) y al final (interrupción por finalización).
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+CAPTION: Tabla 8.1: El DMA es la única técnica con acceso directo a memoria.
+#+ATTR_LATEX: :width 1.0\linewidth :placement [H]
+[[./Imagenes/Tabla_8_1.png]]
+
+** Arquitectura Interna del Módulo
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+El DMA actúa como un procesador simplificado. Para operar independientemente usa registros clave:
+- **Address Register (AR):** Apunta a la dirección de memoria de destino/origen.
+- **Data Count (DC):** Cuenta cuántas palabras faltan por transferir.
+- **Control Logic:** Gestiona el "Handshake" (DREQ, DACK, HRQ, HLDA).
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+CAPTION: Figura 8.12: Registros internos y lógica de control.
+#+ATTR_LATEX: :width 0.9\linewidth :placement [H]
+[[./Imagenes/DMA_Block_Diagram.png]]
+
+** Funcionalidad: Robo de Ciclo (Cycle Stealing)
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+- El DMA **no** ejecuta instrucciones, solo transfiere datos.
+- **Cycle Stealing:** El DMA pausa a la CPU durante **un ciclo de bus** para transferir una palabra.
+- **Ventaja:** No es una interrupción (no guarda contexto), por lo que la CPU sigue trabajando internamente (caché/registros) casi sin impacto.
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+CAPTION: Figura 8.13: El DMA se inserta dentro del ciclo de instrucción.
+#+ATTR_LATEX: :width 1.0\linewidth :placement [H]
+[[./Imagenes/Cycle_Stealing.png]]
+
+** Configuraciones de Interconexión
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+La ubicación del DMA define la eficiencia:
+1. **Bus Único:** Todos comparten el bus. Ineficiente (doble ciclo por dato).
+2. **Bus de E/S (Recomendado):** El DMA aísla el tráfico de los periféricos en un bus privado, liberando el bus del sistema para la CPU y la Memoria.
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+#+CAPTION: Figura 8.14: Evolución hacia el Bus de E/S (c).
+#+ATTR_LATEX: :width 1.0\linewidth :placement [H]
+[[./Imagenes/DMA_Configs.png]]
+
+** Funcionalidad de DMA
+# TODO: Explicar cómo funciona el DMA
+
+* Cierre
+** :PROPERTIES:
+\vspace{1.5cm}
+\centering
+\Huge \textbf{¡Muchas Gracias!}
+
+\vspace{1cm}
+\large ¿Preguntas?
+
+\vspace{1cm}
+\footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec
+>>>>>>> b3017548e74807c24a73fcb9c271e3331bae80e6
