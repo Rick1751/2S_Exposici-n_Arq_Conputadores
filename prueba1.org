@@ -1,7 +1,7 @@
 #+title: S11-Sistemas de Entrada/Salida
 #+date: \today
-#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes
-#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec
+#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo
+#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec, adrian.trujillo@epn.edu.ec
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
 #+OPTIONS: H:2 toc:nil
@@ -270,6 +270,22 @@ dispositivo.
 
 * Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
 ** Acceso directo a Memoria DMA
+
+*** El Problema (Inconvenientes E/S)
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+La E/S programada y con interrupciones requiere intervención activa de la CPU, lo que trae dos problemas:
+- La velocidad de transferencia se limita a la velocidad de respuesta del procesador.
+- El procesador pierde tiempo ejecutando instrucciones de gestión por cada dato transferido.
+
+*** La Solución
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Para transferir grandes volúmenes de datos se usa el **DMA**, una técnica que evita que los datos pasen a través del procesador, liberándolo para otras tareas.
+
+
 * Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
 ** Concepto y Necesidad del DMA
 *** Texto                                                             :BMCOL:
@@ -337,11 +353,33 @@ La ubicación del DMA define la eficiencia:
 :BEAMER_col: 0.6
 :END:
 #+CAPTION: Figura 8.14: Evolución hacia el Bus de E/S (c).
-#+ATTR_LATEX: :width 1.0\linewidth :placement [H]
+#+ATTR_LATEX: :width 0.7\linewidth :placement [H]
 [[./Imagenes/DMA_Configs.png]]
+
+
 
 ** Funcionalidad de DMA
 # TODO: Explicar cómo funciona el DMA
+
+*** Delegación de la Orden
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+El procesador envía una orden al módulo DMA con la información clave: si es lectura/escritura, la dirección del dispositivo, la posición en memoria y la cantidad de datos.
+
+*** Robo de Ciclo (Cycle Stealing)
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+El DMA toma el control del bus imitando al procesador. Fuerza a la CPU a suspenderse temporalmente (un ciclo) para transferir datos directamente a la memoria.
+
+*** Eficiencia
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+El procesador continúa trabajando en paralelo y solo recibe una interrupción al final, cuando el bloque entero ya se transfirió.
+
+
 
 * Cierre
 ** :PROPERTIES:
