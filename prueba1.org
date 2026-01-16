@@ -273,8 +273,29 @@ dispositivo.
 ** Procesamiento de la Interrupción
 # TODO: Explicar el ciclo de procesamiento
 
-** Problemas de diseño
-# TODO: Listar problemas comunes
+** Cuestiones de diseño
+En la E/S mediante interrupciones aparecen dos problemas fundamentales:
+1. Identificar qué dispositivo ha generado la interrupción.
+2. Decidir cuál interrupción debe atender primero la CPU cuando existen varias solicitudes.
+
+- Esto ocurre debido a que normalmente existen múltiples módulos de E/S, el procesador
+  necesita mecanismos eficientes para reconocer el origen de cada interrupción.
+
+** Técnicas de identificación del dispositivo
+- **Múltiples líneas de interrupción:**  
+  La aproximación más directa consiste en proporcionar varias líneas de
+  interrupción entre el procesador y los módulos de E/S. Sin embargo, no es 
+  práctico dedicar más de unas pocas líneas del bus o de los terminales del
+  procesador a este fin; cuando se utilizan varias
+  líneas, es probable que a cada una se conecten varios módulos de E/S.
+
+- **Consulta por software (software poll):**  
+  Cuando el procesador detecta una interrupción, se produce una bifurcación a una
+  rutina de servicio de interrupción que consulta a cada módulo de E/S para
+  determinar cuál ha provocado la interrupción. Esta identificación puede
+  realizarse mediante una línea específica de prueba o mediante la lectura de
+  registros de estado direccionables.
+
 
 * Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
 ** Acceso directo a Memoria DMA
