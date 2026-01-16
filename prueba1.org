@@ -1,6 +1,6 @@
 #+title: S11-Sistemas de Entrada/Salida
 #+date: \today
-#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo
+#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo, Juan Jácome
 #+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec, adrian.trujillo@epn.edu.ec
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
