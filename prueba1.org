@@ -281,7 +281,7 @@ En la E/S mediante interrupciones aparecen dos problemas fundamentales:
 - Esto ocurre debido a que normalmente existen múltiples módulos de E/S, el procesador
   necesita mecanismos eficientes para reconocer el origen de cada interrupción.
 
-** Técnicas de identificación del dispositivo
+**Técnicas de identificación del dispositivo**
 - **Múltiples líneas de interrupción:**  
   La aproximación más directa consiste en proporcionar varias líneas de
   interrupción entre el procesador y los módulos de E/S. Sin embargo, no es 
