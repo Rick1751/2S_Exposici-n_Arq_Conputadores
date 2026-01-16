@@ -260,7 +260,15 @@ dispositivo.
 
 * E/S mediante Interrupción (E3,11,280)(E3,7,243)
 ** E/S mediante Interrupción
-# TODO: Insertar contenido del grupo E3 aquí
+- En la E/S programada, la CPU debe esperar a que el dispositivo esté listo,
+  reduciendo el rendimiento del sistema.
+- Con la E/S mediante interrupciones, el procesador envía la orden de E/S y
+  continúa ejecutando otras tareas.
+- Cuando el dispositivo está preparado, el módulo de E/S genera una interrupción.
+- El procesador atiende la interrupción, realiza la transferencia de datos y
+  luego continúa su ejecución normal.
+- Con ese método aprovecha de mejor manera el tiempo del procesador, mejorando el rendimiento
+  del sistema.
 
 ** Procesamiento de la Interrupción
 # TODO: Explicar el ciclo de procesamiento
