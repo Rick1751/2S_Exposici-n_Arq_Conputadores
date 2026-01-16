@@ -271,7 +271,106 @@ dispositivo.
   del sistema.
 
 ** Procesamiento de la Interrupción
-# TODO: Explicar el ciclo de procesamiento
+
+Cuando un dispositivo de E/S termina una operación de E/S,
+se produce la siguiente secuencia de eventos en el hardware:
+
+*** Paso 1
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+ El dispositivo envia una señal de interrupción al procesador
+
+*** Paso 2
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+ El procesador termina la ejecución de la instrucción en curso
+ antes de responder a la interrupción.
+
+*** Paso 3
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+ El procesador comprueba la existencia de interrupciones e identifica
+la interrupción activa.  
+Posteriormente, envía una señal de reconocimiento (*acknowledge*) al
+dispositivo que originó la interrupción, provocando que este desactive
+su señal de interrupción.
+
+** Guadar la Informacion Necesaria
+
+*** Paso 4
+:PROPERTIES:
+:BEAMER_ENV: block
+:END:
+El procesador guarda el contexto del programa interrumpido en la pila
+de control del sistema, incluyendo:
+- El estado del procesador $\rightarrow$ La Palabra de Estado del Programa (PSW, *Program Status Word*).
+- La dirección de la siguiente instrucción a ejecutar, contenida en el
+  Contador de Programa (PC).
+
+*** Paso 5
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+El procesador carga el Contador de Programa (PC) con la dirección de inicio
+de la Rutina de Servicio de Interrupción (ISR).  
+A partir de este momento, el control de la ejecución se transfiere a dicha rutina.
+** Ejecución de la Rutina de Servicio de Interrupción
+
+
+*** Texto                                                             :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+*Paso 6:* La rutina de servicio de interrupción guarda en la pila de control los
+contenidos de los registros del procesador, ya que estos pueden ser
+utilizados durante la atención de la interrupción.
+
+Este paso asegura la preservación completa del estado del programa
+interrumpido.
+
+*Paso 7:* La rutina de servicio de interrupción procesa el evento que originó la
+interrupción. Esto puede incluir:
+
+- Examinar el estado del dispositivo de E/S.
+- Transferir datos entre el dispositivo y la memoria.
+- Enviar señales o comandos adicionales al dispositivo para finalizar
+  la operación de entrada/salida.
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+#+CAPTION: La interrupción se produce tras la instrucción en la posición N.
+#+ATTR_LATEX: :width 0.5\linewidth
+[[./Imagenes/CambiosMemoriaA.png]]
+
+
+** Restauración del Contexto y Retorno al Programa
+
+*** Imagen                                                         :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+#+CAPTION: Retorno al programa tras la atención de la interrupción.
+#+ATTR_LATEX: :width 0.5\linewidth
+[[./Imagenes/CambiosMemoriaB.png]]
+
+*** Texto                                                          :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+
+*Paso 8:* Una vez finalizado el procesamiento de la interrupción, los valores de los
+registros almacenados se recuperan desde la pila de control y se restauran
+en los registros del procesador.
+
+*Paso 9:* Posteriormente, se recuperan desde la pila la Palabra de Estado del Programa
+(PSW) y el Contador de Programa (PC). Como resultado, el procesador reanuda
+la ejecución del programa previamente interrumpido a partir de la siguiente
+instrucción.
 
 ** Cuestiones de diseño
 En la E/S mediante interrupciones aparecen dos problemas fundamentales:
