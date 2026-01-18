@@ -1,7 +1,7 @@
 #+title: S11-Sistemas de Entrada/Salida
 #+date: \today
-#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo, Juan Jácome, Nayeli Merchan
-#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec, adrian.trujillo@epn.edu.ec, nayeli.merchan@epn.edu.ec
+#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo, Juan Jácome, Nayeli Merchan, Enrique Betancourt
+#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec, adrian.trujillo@epn.edu.ec, nayeli.merchan@epn.edu.ec, enrique.betancourt@epn.edu.ec
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
 #+OPTIONS: H:2 toc:nil
@@ -250,10 +250,30 @@ dispositivo.
 
 * E/S Programada (E4,11,276)(E4,7,239)
 ** E/S Programada
-# TODO: Insertar contenido del grupo E4 aquí
+- La E/S Programada es la técnica para realizar operaciones de entrada y salida donde los datos se
+  intercambian entre el procesador y el módulo de E/S.
+- Esta técnica tiene un control directo sobre la operación de E/S
+  - **Ejecución de órdenes:** Cuando el procesador encuentra una instrucción de E/S, envía una orden
+     al módulo correspondiente para que realice la acción.
+  - **Ausencia de interrupciones:** El módulo de E/S realiza la tarea y activa bits en su registro
+     de estado, pero no avisa al procesador cuando termina.
+  - **Responsabilidad del procesador:** Debido a que no hay avisos automáticos, el procesador debe
+     comprobar periódicamente el estado del módulo hasta determinar que la operación ha finalizado.
+  - **Sincronización manual:** Si el procesador es más rápido que el módulo de E/S, debe esperar y
+    desperdiciar tiempo hasta que la E/S concluya.
+  - **Gestión de memoria:** El procesador es el encargado de extraer los datos de la memoria
+    (en una salida) o de almacenarlos (en una entrada).
 
 ** Comandos de E/S
-# TODO: Explicar comandos
+- Para ejecutar una operación, el procesador proporciona una dirección y una de las cuatro órdenes
+  de E/S posibles:
+  - **Control:** Se usa para activar el periférico e indicarle qué tarea realizar. Por ejemplo,
+    ordenar a una unidad de cinta que rebobine.
+  - **Test:** Sirve para que el procesador verifique el estado del módulo y sus periféricos.
+    Permite saber si el dispositivo está disponible, si la operación anterior terminó o si hubo errores.
+  - **Lectura:** El módulo capta un dato del periférico y lo coloca en un buffer interno.
+    Luego, el procesador solicita que el módulo ponga ese dato en el bus de datos para obtenerlo.
+  - **Escritura:** El módulo capta un dato desde el bus de datos y lo transmite al periférico correspondiente.
 
 ** Instrucciones de E/S
 # TODO: Detallar instrucciones
