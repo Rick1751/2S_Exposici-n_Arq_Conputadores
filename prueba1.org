@@ -377,7 +377,28 @@ En la E/S mediante interrupciones aparecen dos problemas fundamentales:
   determinar cuál ha provocado la interrupción. Esta identificación puede
   realizarse mediante una línea específica de prueba o mediante la lectura de
   registros de estado direccionables.
+** Cuestiones de diseño
 
+- **Daisy Chain:**
+
+  Daisy Chain es una tecnica que funciona como un sondeo por hardware
+  Cuando el procesador detecta una interrupción, envía una
+  señal de reconocimiento que se va propagando por los módulos hasta
+  llegar al que realizó la solicitud, el cual responde colocando en
+  las líneas de datos un vector que lo identifica de forma única o
+  indica la dirección del módulo.
+  El procesador utiliza este vector para acceder directamente a la
+  rutina de servicio correspondiente al dispositivo, evitando ejecutar
+  primero una rutina general de interrupciones, lo que hace que este
+  mecanismo, conocido como interrupción vectorizada, sea más rápido y eficiente.
+
+- **Arbitraje de Bus:**
+
+  Un módulo de E/S debe en primer lugar disponer del control del bus antes de 
+  poder activar la línea de petición de interrupción. Así, solo un
+  módulo puede activar la línea en un instante.
+  Cuando el procesador detecta la interrupción, responde mediante la línea de reconocimiento de 
+  interrupción. Después, el módulo que solicitó la interrupción sitúa su vector en las líneas de datos.
 
 * Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)
 ** Acceso directo a Memoria DMA
