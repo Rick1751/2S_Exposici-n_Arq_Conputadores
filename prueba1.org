@@ -1,7 +1,7 @@
 #+title: S11-Sistemas de Entrada/Salida
 #+date: \today
-#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo, Juan Jácome, Nayeli Merchan, Enrique Betancourt, Ana Corral
-#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec, adrian.trujillo@epn.edu.ec, nayeli.merchan@epn.edu.ec, enrique.betancourt@epn.edu.ec, anacarolina.corral@epn.edu.ec
+#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo, Juan Jácome, Nayeli Merchan, Enrique Betancourt, Samara Salazar
+#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec, adrian.trujillo@epn.edu.ec, nayeli.merchan@epn.edu.ec, enrique.betancourt@epn.edu.ec, luzsamara.salazar@epn.edu.ec
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
 #+OPTIONS: H:2 toc:nil
@@ -20,8 +20,10 @@
 - **Sistemas de Entrada/Salida (E1,11,270)(E1, 7,229)**
 - **Módulos de E/S (E2, 11,273)(E2, 7,236)**
 - **E/S Programada (E4,11,276)(E4,7,239)**
+- **Instrucciones de E/S (E4,11,278)(E4,7,241)**
 - **E/S mediante Interrupción (E3,11,280)(E3,7,243)**
-- **Acceso directo a Memoria DMA (E5,11, 290)(E5,7, 251)**
+- **Acceso directo a Memoria DMA (E5,11,290)(E5,7,251)**
+
   
 # ---------------------------------------------------E1-----------------------------------------------------------
 
@@ -276,7 +278,45 @@ dispositivo.
   - **Escritura:** El módulo capta un dato desde el bus de datos y lo transmite al periférico correspondiente.
 
 ** Instrucciones de E/S
-# TODO: Detallar instrucciones
+
+- Las instrucciones de E/S permiten al procesador comunicarse con los dispositivos
+  externos a través de módulos de E/S. En la E/S programada existe una relación
+  directa entre las instrucciones ejecutadas por la CPU y las órdenes enviadas al
+  dispositivo, generalmente de uno a uno.
+
+- Cada dispositivo de E/S posee un identificador o dirección única. Cuando el
+  procesador envía una orden de E/S, incluye esta dirección para que el módulo
+  correspondiente interprete si la operación está dirigida a él.
+
+- Cuando la memoria principal y los dispositivos de E/S comparten un bus común,
+  se utilizan dos esquemas de direccionamiento: E/S asignada en memoria y E/S
+  aislada.
+
+** Direccionamiento de E/S: Memory-Mapped vs E/S Aislada
+
+En la E/S asignada en memoria (memory-mapped), los registros de datos y estado
+  de los dispositivos se consideran posiciones de memoria. Esto permite usar el
+  mismo conjunto de instrucciones máquina para acceder tanto a memoria como a
+  E/S, facilitando la programación.
+
+- En la E/S aislada, la memoria y la E/S utilizan espacios de direcciones separados
+  y los dispositivos solo pueden ser accedidos mediante instrucciones específicas
+  de E/S. Aunque conserva el espacio de direcciones de memoria, ofrece un número
+  más limitado de instrucciones.
+
+- La E/S asignada en memoria ofrece mayor flexibilidad y eficiencia en la
+  programación, mientras que la E/S aislada evita el uso del espacio de memoria.
+  Por ello, ambos métodos se emplean comúnmente según el diseño del sistema.
+
+** Ejemplo gráfico 
+
+*** Imagen                                                            :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+#+ATTR_LATEX: :width 1.0\textwidth
+#+CAPTION: Comparación entre E/S asignada en memoria y E/S aislada
+[[./Imagenes/AisladavsMemoria.png]]
 
 * E/S mediante Interrupción (E3,11,280)(E3,7,243)
 ** E/S mediante Interrupción
@@ -543,5 +583,5 @@ El procesador continúa trabajando en paralelo y solo recibe una interrupción a
 \large ¿Preguntas?
 
 \vspace{1cm}
-\footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec
+\footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec; luzsamara.salazar@epn.edu.ec
 
