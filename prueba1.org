@@ -1,7 +1,7 @@
 #+title: S11-Sistemas de Entrada/Salida
 #+date: \today
-#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo, Juan Jácome, Nayeli Merchan, Enrique Betancourt, Samara Salazar
-#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec, adrian.trujillo@epn.edu.ec, nayeli.merchan@epn.edu.ec, enrique.betancourt@epn.edu.ec, luzsamara.salazar@epn.edu.ec
+#+author: Andre Rosero, Ricardo León, Mauro Valencia, David Paredes, Adrían Trujillo, Juan Jácome, Nayeli Merchan, Enrique Betancourt, Samara Salazar, Ana Corral
+#+email: andre.rosero@epn.edu.ec, ricardo.leon02@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec, adrian.trujillo@epn.edu.ec, nayeli.merchan@epn.edu.ec, enrique.betancourt@epn.edu.ec, luzsamara.salazar@epn.edu.ec, anacarolina.corral@epn.edu.ec
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, aspectratio=169]
 #+OPTIONS: H:2 toc:nil
@@ -583,5 +583,5 @@ El procesador continúa trabajando en paralelo y solo recibe una interrupción a
 \large ¿Preguntas?
 
 \vspace{1cm}
-\footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec; luzsamara.salazar@epn.edu.ec
+\footnotesize ricardo.leon02@epn.edu.ec, andre.rosero@epn.edu.ec, mauro.valencia@epn.edu.ec; david.paredes01@epn.edu.ec; luzsamara.salazar@epn.edu.ec, anacarolina.corral@epn.edu.ec
 
